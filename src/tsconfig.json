@@ -1,0 +1,12 @@
+{
+  "extends": "@do-while-for-each/tsconfig/tsconfig.base.json",
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "jsx": "react-jsx",
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "strictPropertyInitialization": false,
+    "noPropertyAccessFromIndexSignature": false
+  }
+}

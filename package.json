@@ -1,0 +1,41 @@
+{
+  "name": "circular_deps",
+  "description": "",
+  "version": "1.0.0",
+  "private": "true",
+  "scripts": {
+    "clean": "dwfeFs cleanDir . --fileNames=\"dist;node_modules;package-lock.json\"",
+    "start": "dwfeBundler opt",
+    "prod": "dwfeFs rmForce ./dist --noConfirm && gmBundler opt --prod"
+  },
+  "dwfeBundlerOptions": {
+    "opt": {
+      "bundler": "react",
+      "entryPoint": "src/index.tsx",
+      "templatePath": "public/index.html",
+      "svgLoaderType": "rawFileContent",
+      "port": 7777,
+      "printOptions": true
+    }
+  },
+  "dependencies": {
+    "@do-while-for-each/react-cmmn-packs": "18.x.x",
+    "normalize.css": "8.0.1"
+  },
+  "devDependencies": {
+    "@do-while-for-each/tsconfig": "1.x.x",
+    "@do-while-for-each/bundler": "2.0.1"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
