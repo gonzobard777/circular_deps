@@ -1,4 +1,4 @@
-import {message} from './package-one';
+import {message} from './package-message';
 
 export function App() {
   return (
