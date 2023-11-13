@@ -1,8 +1,7 @@
-// import {message} from './check/message';
-import {hello} from './check/package';
+import {message} from './package-one';
 
 export function App() {
   return (
-    <div>{hello()}</div>
+    <div>{message()}</div>
   );
 }

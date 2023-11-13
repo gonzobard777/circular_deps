@@ -1,5 +1,5 @@
 import {b} from './b';
 
-export function aFn() {
+export function aFn(): number {
   return b + 1;
 }
