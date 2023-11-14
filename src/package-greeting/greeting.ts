@@ -1,3 +1,4 @@
+
 export function greeting(lang?: 'ru' | 'en') {
   switch (lang) {
     case 'ru':
