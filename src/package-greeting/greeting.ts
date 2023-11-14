@@ -8,3 +8,5 @@ export function greeting(lang?: 'ru' | 'en') {
       return '👋';
   }
 }
+
+
