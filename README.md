@@ -62,7 +62,7 @@ export function aFn(): number {
 ## TypeError: Cannot read properties of undefined (reading 'ИмяКонстанты')
 
 В нашем примере такая ошибка возникнет в файле `a.ts`, в случае если последовательность импортов будет следующей:  
-импортируем `a.ts`, затем импортируем `b.ts`.
+импортируем `a.ts`, затем импортируем `b.ts`.  
 (проверено в React-приложении, webpack, develop сборка)
 
 файл `a.ts`:
