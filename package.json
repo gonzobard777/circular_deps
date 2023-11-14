@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "dwfeFs cleanDir . --fileNames=\"dist;node_modules;package-lock.json\"",
     "start": "dwfeBundler opt",
-    "prod": "dwfeFs rmForce ./dist --noConfirm && gmBundler opt --prod"
+    "prod": "dwfeFs rmForce ./dist --noConfirm && dwfeBundler opt --prod"
   },
   "dwfeBundlerOptions": {
     "opt": {
