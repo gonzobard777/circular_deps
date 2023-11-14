@@ -20,9 +20,9 @@
 - файл с конкретной константой
 - файл, где возникла ошибка
 
-Ошибка будет связана с тем, что константа еще не определена, а javascript уже пытается выполнить код с участием этой константы в файле возникновения ошибки.
+Ошибка будет связана с тем, что javascript пытается выполнить код с участием этой константы, а константа либо еще не поределена, либо модуль с константой не проинициализирован.
 
-# Как выглядит сообщение, когда возникает ошибка циклической зависимости
+# Как может выглядеть сообщение, когда возникает ошибка циклической зависимости
 
 Для примера возьмем два файла:
 
@@ -44,21 +44,6 @@ import {aFn} from './a';
 export const b = 1 + aFn();
 ```
 
-## TypeError: Cannot read properties of undefined (reading 'ИмяКонстанты')
-
-В нашем примере такая ошибка возникнет в файле `a.ts`, в случае если последовательность импортов будет следующей:  
-импортируем `a.ts`, затем импортируем `b.ts`.
-
-файл `a.ts`:
-
-```typescript
-import {b} from './b';
-
-export function aFn(): number {
-  return b + 1; // <------------ TypeError: Cannot read properties of undefined (reading 'b')
-}
-```
-
 ## ReferenceError: Cannot access 'ИмяКонстанты' before initialization
 
 В нашем примере такая ошибка возникнет в файле `a.ts`, в случае если последовательность импортов будет следующей:  
@@ -72,6 +57,21 @@ import {b} from './b';
 export function aFn(): number {
   return b + 1;
 }// <------------ ReferenceError: Cannot access 'b' before initialization
+```
+
+## TypeError: Cannot read properties of undefined (reading 'ИмяКонстанты')
+
+В нашем примере такая ошибка возникнет в файле `a.ts`, в случае если последовательность импортов будет следующей:  
+импортируем `a.ts`, затем импортируем `b.ts`.
+
+файл `a.ts`:
+
+```typescript
+import {b} from './b';
+
+export function aFn(): number {
+  return b + 1; // <------------ TypeError: Cannot read properties of undefined (reading 'b')
+}
 ```
 
 ---
