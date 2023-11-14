@@ -1,11 +1,7 @@
+import {message} from './package-message';
 
-  import {message} from './package-message';
-
-  export function App() {
-    return (
-      <div>{message()}</div>
-    );
-  }
-
-
-
+export function App() {
+  return (
+    <div>{message()}</div>
+  );
+}

@@ -34,7 +34,49 @@ export const b = 1 + aFn();
 
 ## Все становится неочевидно, если есть индексные файлы
 
+Давайте рассмотрим пример из репозитория:
 
+![](./src/doc/img/App-message-greeting_example.png)
+
+**Пример 2.** Пример "чужой" циклической зависимости.
+
+для React-компонента `<App>` надо импортировать функцию `message`  
+для функцим `message` надо импортировать функцию `greeting`
+
+И вроде бы все должно работать, но выполнение программы падает в ошибку:
+
+![](./src/doc/img/App_error.png)
+
+Импорт функции `greeting` идет через индексный файл, а при прочтении индексного файла javascript отрабатывает все указанные в нем экспорты:
+
+![](./src/doc/img/proj_greeting_index.png)
+
+А ошибка возникает на файлах `a.ts` и `b.ts` (см. выше Пример 1). Именно они зациклены друг на друга и у одного из них есть экспортированная константа, которая импртируется и используется.
+Тепреь вы видите, что цепочка `<App>`-`message`-`greeting` не содержит циклических зависимостей, но программа в runtime падает в ошибку:
+
+- из-за "чужой" циклической зависимости
+- из-за экпортированной и использованной константы
+- и, самое главное, из-за **индексного файла**
+
+---
+В примере 2 из стектрейса можно легко понять, где находится проблема.  
+Но на больших проектах индексные файлы могут пересекаться друг с другом, что пораждает длинные цепочки зависимостей, например:
+
+```
+src\infra\map-layer\implementation\index.tsx 
+ -> src\infra\map-layer\implementation\stub-layer\stub-layer.ts 
+     -> src\infra\map-layer\implementation\stub-layer\stub-layer-render-controller.ts 
+         -> src\app-common\util.ts 
+             -> src\app-common\constant.ts 
+                 -> src\controller\meteo-workplace\state\meteo-workplace.state.ts 
+                     -> src\controller\meteo-workplace\state\layer-list\layer-wrap-list.ts 
+                          -> src\controller\meteo-workplace\state\layer-list\layer-wrap.factory.ts 
+                              -> src\controller\meteo-workplace\state\layer-list\display-option-view.ts 
+                                  -> src\infra\map-layer\index.tsx 
+                                      -> src\infra\map-layer\implementation\index.tsx
+```
+
+Такие цепочки приводят к тому, что, когда программа упала, ты смотришь в стектрейс и вообще даже не представляешь из-за чего она упала.
 
 # Как решать ошибки циклической зависимости
 
