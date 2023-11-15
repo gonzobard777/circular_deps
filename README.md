@@ -38,15 +38,15 @@ export const b = 1 + aFn();
 
 ![](./src/doc/img/App-message-greeting_example.png)
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;здесь:  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;для React-компонента `<App>` надо импортировать функцию `message`  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;для функцим `message` надо импортировать функцию `greeting`
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;И вроде бы все должно работать, но выполнение программы падает в ошибку:
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](./src/doc/img/App_error.png)
+
 **Пример 2.** Программа не работает из-за ошибки в "чужой" циклической зависимости.
-
-Здесь:  
-для React-компонента `<App>` надо импортировать функцию `message`  
-для функцим `message` надо импортировать функцию `greeting`
-
-И вроде бы все должно работать, но выполнение программы падает в ошибку:
-
-![](./src/doc/img/App_error.png)
 
 Импорт функции `greeting` идет через индексный файл, а при прочтении индексного файла javascript отрабатывает все указанные в нем экспорты:
 
