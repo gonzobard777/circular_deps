@@ -61,23 +61,23 @@ export const b = 1 + aFn();
 
 ---
 В примере 2 из стектрейса можно легко понять, где находится проблема.  
-Но на больших проектах индексные файлы могут пересекаться друг с другом, что пораждает длинные цепочки зависимостей, например:
+Но в большом проекте индексных файлов может быть много и они могут пересекаться друг с другом, что пораждает длинные цепочки циклических зависимостей, например:
 
 ```
 src\infra\map-layer\implementation\index.tsx 
- -> src\infra\map-layer\implementation\stub-layer\stub-layer.ts 
-     -> src\infra\map-layer\implementation\stub-layer\stub-layer-render-controller.ts 
-         -> src\app-common\util.ts 
-             -> src\app-common\constant.ts 
-                 -> src\controller\meteo-workplace\state\meteo-workplace.state.ts 
-                     -> src\controller\meteo-workplace\state\layer-list\layer-wrap-list.ts 
-                          -> src\controller\meteo-workplace\state\layer-list\layer-wrap.factory.ts 
-                              -> src\controller\meteo-workplace\state\layer-list\display-option-view.ts 
-                                  -> src\infra\map-layer\index.tsx 
-                                      -> src\infra\map-layer\implementation\index.tsx
+  -> src\infra\map-layer\implementation\stub-layer\stub-layer.ts 
+      -> src\infra\map-layer\implementation\stub-layer\stub-layer-render-controller.ts 
+          -> src\app-common\util.ts 
+              -> src\app-common\constant.ts 
+                  -> src\controller\meteo-workplace\state\meteo-workplace.state.ts 
+              -> src\controller\meteo-workplace\state\layer-list\layer-wrap-list.ts 
+          -> src\controller\meteo-workplace\state\layer-list\layer-wrap.factory.ts 
+      -> src\controller\meteo-workplace\state\layer-list\display-option-view.ts 
+  -> src\infra\map-layer\index.tsx 
+-> src\infra\map-layer\implementation\index.tsx
 ```
 
-Такие цепочки приводят к тому, что, когда программа упала, ты смотришь в стектрейс и вообще даже не представляешь из-за чего она упала.
+Такие цепочки приводят к тому, что, когда программа упала из за циклической зависимости, ты смотришь в стектрейс и вообще даже не представляешь где?, что? и с чем? пересеклось.
 
 # Как решать ошибки циклической зависимости
 
